@@ -1,36 +1,40 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using FarmLabService.Dal;
 using FarmLabService.DataObjects;
+using Microsoft.EntityFrameworkCore;
 
 namespace FarmLabService.Services
 {
     public class UserRepository : IUserRepository
     {
         private readonly FarmLabContext _context;
-        private readonly List<UserItem> _list = new List<UserItem>();
 
         public UserRepository(FarmLabContext context)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public void Insert(UserItem item)
+        public async Task<int> InsertAsync(UserItem item)
         {
-            _context.Users.Add(item);
-            _context.SaveChanges();
+            if (await DoesItemExistAsync(item.Email) == false)
+            {
+                _context.Users.Add(item);
+                return await _context.SaveChangesAsync();
+            }
+
+            return -1;
         }
 
-        public IEnumerable<UserItem> All
+        public async Task<UserItem> GetByIdAsync(string id)
         {
-            get { return _context.Users; }
+            return await _context.Users.AsNoTracking().SingleOrDefaultAsync(s => s.Email == id);
         }
 
-        public bool DoesItemExist(string id)
+        public async Task<bool> DoesItemExistAsync(string id)
         {
-            return _context.Users.Any(item => item.Email == id);
+            return await _context.Users.AsNoTracking().AnyAsync(item => item.Email == id);
         }
     }
 }

@@ -1,15 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System.Threading.Tasks;
 using FarmLabService.DataObjects;
 
 namespace FarmLabService.Services
 {
     public interface IUserRepository
     {
-        IEnumerable<UserItem> All { get; }
+        Task<UserItem> GetByIdAsync(string id);
 
-        void Insert(UserItem item);
+        Task<int> InsertAsync(UserItem item);
 
-        bool DoesItemExist(string id);
+        Task<bool> DoesItemExistAsync(string id);
 
     }
 }

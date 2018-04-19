@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FarmLabService.DataObjects;
+﻿using FarmLabService.DataObjects;
 using Microsoft.EntityFrameworkCore;
 
 namespace FarmLabService.Dal
@@ -14,5 +10,6 @@ namespace FarmLabService.Dal
         { }
 
         public DbSet<UserItem> Users { get; set; }
+        public DbSet<FarmItem> Farm { get; set; }
     }
 }

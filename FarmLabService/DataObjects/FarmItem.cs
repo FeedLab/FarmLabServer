@@ -3,18 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace FarmLabService.DataObjects
 {
-    public class UserItem
+    public class FarmItem
     {
         [Key]
-        public string Email { get; set; }
+        public Guid Id { get; set; }
 
         [Required]
-        public string Token { get; set; }
-
-        [Required]
-        public string Name { get; set; }
-
-        public FarmItem Farm { get; set; }
+        public string FarmName { get; set; }
 
         [Required]
         public DateTime CreateDate { get; set; }

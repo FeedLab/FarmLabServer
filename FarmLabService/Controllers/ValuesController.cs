@@ -1,9 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 
 namespace FarmLabService.Controllers
 {
@@ -41,6 +39,12 @@ namespace FarmLabService.Controllers
         [HttpDelete("{id}")]
         public void Delete(int id)
         {
+        }
+
+        [Route("secret")]
+        public string Secret()
+        {
+            return JsonConvert.SerializeObject(User.Identities);
         }
     }
 }

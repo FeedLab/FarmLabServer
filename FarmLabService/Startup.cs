@@ -1,8 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
 using FarmLabService.Dal;
 using FarmLabService.DataObjects;
 using FarmLabService.Services;
@@ -14,8 +11,6 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace FarmLabService
 {
@@ -31,6 +26,8 @@ namespace FarmLabService
 
     public class Startup
     {
+        private ServiceProvider _services;
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -44,7 +41,18 @@ namespace FarmLabService
             services.AddMvc();
 
             services.AddScoped<IUserRepository, UserRepository>();
-            services.AddDbContext<FarmLabContext>(options =>options.UseSqlServer(Configuration.GetConnectionString("MS_FarmLabConnectionString")));
+            services.AddDbContext<FarmLabContext>(options =>
+            {
+                var connectionString = Configuration.GetConnectionString("MS_FarmLabConnectionString");
+
+                if (string.IsNullOrEmpty(connectionString))
+                {
+                    connectionString = Environment.GetEnvironmentVariable("MS_FarmLabConnectionString");
+                }
+
+                options.UseSqlServer("Server=tcp:farmlabdbserver.database.windows.net,1433;Initial Catalog=FarmLabDb;Persist Security Info=False;User ID=Jompa67;Password=yaa2Jonny;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+     //           options.UseSqlServer(connectionString);
+            });
 
             services.AddIdentity<UserItem, IdentityRole>();
 
@@ -60,13 +68,25 @@ namespace FarmLabService
                     googleOptions.ClientSecret = "rWYnVfgRbg-vKuhHGsypozJ8";
                     googleOptions.Events = new OAuthEvents()
                     {
-                        OnCreatingTicket = (context) =>
+                        OnCreatingTicket = async (context) =>
                         {
+                            var token = context.AccessToken;
                             var userEmail = context.Identity.FindFirst(ClaimTypes.Email).Value;
+                            var userName = context.Identity.Name;
 
-                            return Task.CompletedTask;
+                            var userRepository = _services.GetRequiredService<IUserRepository>();
+
+                            await userRepository.InsertAsync(new UserItem
+                            {
+                                Email = userEmail,
+                                Name = userName,
+                                Token = token,
+                                CreateDate = DateTime.UtcNow
+                            });
                         }
                     };
+
+                    _services = services.BuildServiceProvider();
                 });
 
             //    .AddEntityFrameworkStores<FarmLabContext>()

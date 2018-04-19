@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace FarmLabService.Dal
+﻿namespace FarmLabService.Dal
 {
     //public class FarmLabInitializer : CreateDatabaseIfNotExists<FarmLabContext>
     //{
