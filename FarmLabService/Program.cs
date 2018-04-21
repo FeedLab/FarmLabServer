@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Hosting.Internal;
 
 namespace FarmLabService
 {
@@ -16,7 +17,7 @@ namespace FarmLabService
                 .UseUrls("http://*:5000")
                 .UseStartup<Startup>()
                 .UseApplicationInsights()
-                .UseAzureAppServices()
+         //       .UseAzureAppServices()
                 .Build();
     }
 }
