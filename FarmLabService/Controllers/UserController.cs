@@ -16,18 +16,18 @@ namespace FarmLabService.Controllers
         }
 
         // GET api/User/Billy@google.com
-        [HttpGet("{id}")]
-        public async Task<IActionResult> Get(string id)
-        {
-            var user = await _userRepository.GetByIdAsync(id);
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> Get(string id)
+        //{
+        //    var user = await _userRepository.GetByIdAsync(id);
 
-            if (user != null)
-            {
-                return Ok(new UserInfo(user));
-            }
+        //    if (user != null)
+        //    {
+        //        return Ok(new UserInfo(user));
+        //    }
 
-            return BadRequest("User not registred");
-        }
+        //    return BadRequest("User not registred");
+        //}
 
         //[HttpPost]
         //public async Task<IActionResult> Create([FromBody] UserItem item)

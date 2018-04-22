@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace FarmLabService.Controllers
 {
-    [Route("api/[controller]")]
+ //   [Route("api/[controller]")]
     public class AuthController : Controller
     {
         //[Route("secret")]
@@ -16,11 +16,29 @@ namespace FarmLabService.Controllers
         //    return View(new User(this.User));
         //}
 
-        [Authorize]
-        [Route("home")]
-        public bool Home()
-        {
-            return User.Identities.Any(v => v.IsAuthenticated);
-        }
+        //[Route(".auth/login/google")]
+        //public void LoggIn()
+        //{
+
+        //}
+
+        //[Route(".auth/login/done")]
+        //public void LoggedIn()
+        //{
+
+        //}
+
+        //[Route("easyauth.callback")]
+        //public void easyauth()
+        //{
+
+        //}
+
+        //[Authorize]
+        //[Route("home")]
+        //public bool Home()
+        //{
+        //    return User.Identities.Any(v => v.IsAuthenticated);
+        //}
     }
 }
