@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 
 namespace FarmLabService.Controllers
 {
@@ -13,7 +8,7 @@ namespace FarmLabService.Controllers
         //[Route("secret")]
         //public IActionResult Secret()
         //{
-        //    return View(new User(this.User));
+        //    return View(new UserItem(this.UserItem));
         //}
 
         //[Route(".auth/login/google")]
@@ -38,7 +33,7 @@ namespace FarmLabService.Controllers
         //[Route("home")]
         //public bool Home()
         //{
-        //    return User.Identities.Any(v => v.IsAuthenticated);
+        //    return UserItem.Identities.Any(v => v.IsAuthenticated);
         //}
     }
 }

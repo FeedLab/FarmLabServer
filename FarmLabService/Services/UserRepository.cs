@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using FarmLabService.Dal;
 using FarmLabService.DataObjects;
@@ -7,7 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace FarmLabService.Services
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository //: IUserRepository
     {
         private readonly FarmLabContext _context;
 
@@ -16,25 +15,45 @@ namespace FarmLabService.Services
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<int> InsertAsync(UserItem item)
+        public async Task<UserItem> GetUserAsync(UserItem item)
         {
-            if (await DoesItemExistAsync(item.Email) == false)
+            var userItem = await GetByIdAsync(item.Email);
+
+            if (userItem == null)
             {
-                _context.Users.Add(item);
-                return await _context.SaveChangesAsync();
+                return await CreatetUserAsync(item);
             }
 
-            return -1;
+            return userItem;
         }
+
+        public async Task<UserItem> CreatetUserAsync(UserItem item)
+        {
+            await _context.User.AddAsync(item);
+            await _context.SaveChangesAsync();
+
+            return item;
+        }
+
+        //public async Task<int> InsertAsync(UserItemXxxx itemXxxx)
+        //{
+        //    if (await DoesItemExistAsync(itemXxxx.Email) == false)
+        //    {
+        //        _context.Users.Add(itemXxxx);
+        //        return await _context.SaveChangesAsync();
+        //    }
+
+        //    return -1;
+        //}
 
         public async Task<UserItem> GetByIdAsync(string id)
         {
-            return await _context.Users.AsNoTracking().SingleOrDefaultAsync(s => s.Email == id);
+            return await _context.User.AsNoTracking().SingleOrDefaultAsync(s => s.Email == id);
         }
 
-        public async Task<bool> DoesItemExistAsync(string id)
-        {
-            return await _context.Users.AsNoTracking().AnyAsync(item => item.Email == id);
-        }
+        //public async Task<bool> DoesItemExistAsync(string id)
+        //{
+        //    return await _context.Users.AsNoTracking().AnyAsync(item => item.Email == id);
+        //}
     }
 }

@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.27428.2037
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FarmLabService", "FarmLabService\FarmLabService.csproj", "{109769B6-4BD6-47A0-ADC0-48E85E412C0A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FarmLabService", "FarmLabService\FarmLabService.csproj", "{109769B6-4BD6-47A0-ADC0-48E85E412C0A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IntegrationTests", "IntegrationTests\IntegrationTests.csproj", "{BCD3EDCF-30B6-4B39-9FBB-C72D5C8F9BBC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{109769B6-4BD6-47A0-ADC0-48E85E412C0A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{109769B6-4BD6-47A0-ADC0-48E85E412C0A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{109769B6-4BD6-47A0-ADC0-48E85E412C0A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BCD3EDCF-30B6-4B39-9FBB-C72D5C8F9BBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BCD3EDCF-30B6-4B39-9FBB-C72D5C8F9BBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BCD3EDCF-30B6-4B39-9FBB-C72D5C8F9BBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BCD3EDCF-30B6-4B39-9FBB-C72D5C8F9BBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

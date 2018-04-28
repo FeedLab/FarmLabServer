@@ -11,9 +11,10 @@ using System;
 namespace FarmLabService.Migrations
 {
     [DbContext(typeof(FarmLabContext))]
-    partial class FarmLabContextModelSnapshot : ModelSnapshot
+    [Migration("20180428085352_userAndSessionChange")]
+    partial class userAndSessionChange
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -52,8 +53,6 @@ namespace FarmLabService.Migrations
 
                     b.Property<Guid>("SessionKey");
 
-                    b.Property<int>("UserId");
-
                     b.HasKey("Id");
 
                     b.ToTable("Session");
@@ -63,6 +62,8 @@ namespace FarmLabService.Migrations
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd();
+
+                    b.Property<int?>("ActiveSessionId");
 
                     b.Property<string>("DisplayName")
                         .IsRequired();
@@ -83,32 +84,28 @@ namespace FarmLabService.Migrations
                     b.Property<string>("Password")
                         .IsRequired();
 
-                    b.Property<int>("SessionId");
-
                     b.Property<DateTime>("TimeCreate");
 
                     b.Property<DateTime>("TimeModify");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("FarmId");
+                    b.HasIndex("ActiveSessionId");
 
-                    b.HasIndex("SessionId")
-                        .IsUnique();
+                    b.HasIndex("FarmId");
 
                     b.ToTable("User");
                 });
 
             modelBuilder.Entity("FarmLabService.DataObjects.UserItem", b =>
                 {
+                    b.HasOne("FarmLabService.DataObjects.SessionItem", "ActiveSession")
+                        .WithMany()
+                        .HasForeignKey("ActiveSessionId");
+
                     b.HasOne("FarmLabService.DataObjects.FarmItem", "Farm")
                         .WithMany()
                         .HasForeignKey("FarmId");
-
-                    b.HasOne("FarmLabService.DataObjects.SessionItem", "ActiveSession")
-                        .WithOne("User")
-                        .HasForeignKey("FarmLabService.DataObjects.UserItem", "SessionId")
-                        .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618
         }

@@ -1,13 +1,11 @@
 ﻿using System;
 using System.Security.Claims;
 using FarmLabService.Dal;
-using FarmLabService.DataObjects;
 using FarmLabService.Services;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authentication.OAuth;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -40,7 +38,7 @@ namespace FarmLabService
         {
             services.AddMvc();
 
-            services.AddScoped<IUserRepository, UserRepository>();
+        //    services.AddScoped<IUserRepository, UserRepository>();
             services.AddDbContext<FarmLabContext>(options =>
             {
                 var connectionString = Configuration.GetConnectionString("MS_FarmLabConnectionString");
@@ -50,11 +48,12 @@ namespace FarmLabService
                     connectionString = Environment.GetEnvironmentVariable("MS_FarmLabConnectionString");
                 }
 
-                options.UseSqlServer("Server=tcp:farmlabdbserver.database.windows.net,1433;Initial Catalog=FarmLabDb;Persist Security Info=False;User ID=Jompa67;Password=yaa2Jonny;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
+                options.UseSqlServer(connectionString);
+            //    options.UseSqlServer("Server=tcp:farmlabdbserver.database.windows.net,1433;Initial Catalog=FarmLabDb;Persist Security Info=False;User ID=Jompa67;Password=yaa2Jonny;MultipleActiveResultSets=False;Encrypt=True;TrustServerCertificate=False;Connection Timeout=30;");
      //           options.UseSqlServer(connectionString);
             });
 
-            services.AddIdentity<UserItem, IdentityRole>();
+      //      services.AddIdentity<UserItemXxxx, IdentityRole>();
 
             services
                 .AddAuthentication(v =>
@@ -76,13 +75,13 @@ namespace FarmLabService
 
                             var userRepository = _services.GetRequiredService<IUserRepository>();
 
-                            await userRepository.InsertAsync(new UserItem
-                            {
-                                Email = userEmail,
-                                Name = userName,
-                                Token = token,
-                                CreateDate = DateTime.UtcNow
-                            });
+                            //await userRepository.InsertAsync(new UserItemXxxx
+                            //{
+                            //    Email = userEmail,
+                            //    Name = userName,
+                            //    Token = token,
+                            //    CreateDate = DateTime.UtcNow
+                            //});
                         }
                     };
 
@@ -129,6 +128,12 @@ namespace FarmLabService
             application
                 .UseAuthentication()
                 .UseMvc();
+
+            //using (var serviceScope = application.ApplicationServices.GetService<IServiceScopeFactory>().CreateScope())
+            //{
+            //    var context = serviceScope.ServiceProvider.GetRequiredService<FarmLabContext>();
+            //    context.Database.Migrate();
+            //}
         }
     }
 }

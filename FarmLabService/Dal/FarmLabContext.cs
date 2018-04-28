@@ -9,7 +9,24 @@ namespace FarmLabService.Dal
             : base(options)
         { }
 
-        public DbSet<UserItem> Users { get; set; }
+        public DbSet<UserItem> User{ get; set; }
         public DbSet<FarmItem> Farm { get; set; }
+        public DbSet<SessionItem> Session { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<UserItem>()
+                .HasOne(a => a.ActiveSession)
+                .WithOne(b => b.User)
+                .HasForeignKey<SessionItem>(b => b.UserId);
+
+            modelBuilder.Entity<SessionItem>()
+                .HasOne(a => a.User)
+                .WithOne(b => b.ActiveSession)
+                .HasForeignKey<UserItem>(b => b.SessionId);
+
+            base.OnModelCreating(modelBuilder);
+        }
     }
+
 }

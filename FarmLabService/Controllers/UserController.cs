@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using FarmLabService.Model;
-using FarmLabService.Services;
+﻿using FarmLabService.Services;
 using Microsoft.AspNetCore.Mvc;
 
 namespace FarmLabService.Controllers
@@ -15,7 +13,7 @@ namespace FarmLabService.Controllers
             _userRepository = userRepository;
         }
 
-        // GET api/User/Billy@google.com
+        // GET api/UserItem/Billy@google.com
         //[HttpGet("{id}")]
         //public async Task<IActionResult> Get(string id)
         //{
@@ -23,14 +21,14 @@ namespace FarmLabService.Controllers
 
         //    if (user != null)
         //    {
-        //        return Ok(new UserInfo(user));
+        //        return Ok(new UserInfoXxxx(user));
         //    }
 
-        //    return BadRequest("User not registred");
+        //    return BadRequest("UserItem not registred");
         //}
 
         //[HttpPost]
-        //public async Task<IActionResult> Create([FromBody] UserItem item)
+        //public async Task<IActionResult> Create([FromBody] UserItemXxxx item)
         //{
         //    try
         //    {

@@ -1,13 +1,12 @@
 ﻿using System.Threading.Tasks;
-using FarmLabService.DataObjects;
 
 namespace FarmLabService.Services
 {
     public interface IUserRepository
     {
-        Task<UserItem> GetByIdAsync(string id);
+        //Task<UserItemXxxx> GetByIdAsync(string id);
 
-        Task<int> InsertAsync(UserItem item);
+        //Task<int> InsertAsync(UserItemXxxx itemXxxx);
 
         Task<bool> DoesItemExistAsync(string id);
 

@@ -6,12 +6,16 @@ namespace FarmLabService.DataObjects
     public class FarmItem
     {
         [Key]
-        public Guid Id { get; set; }
+        public int Id { get; set; }
 
         [Required]
-        public string FarmName { get; set; }
-
+        public Guid ExternalFarmReference { get; set; }
         [Required]
-        public DateTime CreateDate { get; set; }
+        public string DisplayName { get; set; }
+        public string Description { get; set; }
+        [Required]
+        public DateTime TimeCreate { get; set; }
+        [Required]
+        public DateTime TimeModify { get; set; }
     }
 }
