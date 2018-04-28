@@ -15,15 +15,15 @@ namespace FarmLabService.Dal
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserItem>()
-                .HasOne(a => a.ActiveSession)
-                .WithOne(b => b.User)
-                .HasForeignKey<SessionItem>(b => b.UserId);
+            //modelBuilder.Entity<UserItem>()
+            //    .HasOne(a => a.ActiveSession)
+            //    .WithOne(b => b.User)
+            //    .HasForeignKey<SessionItem>(b => b.UserId);
 
-            modelBuilder.Entity<SessionItem>()
-                .HasOne(a => a.User)
-                .WithOne(b => b.ActiveSession)
-                .HasForeignKey<UserItem>(b => b.SessionId);
+            //modelBuilder.Entity<SessionItem>()
+            //    .HasOne(a => a.User)
+            //    .WithOne(b => b.ActiveSession)
+            //    .HasForeignKey<UserItem>(b => b.SessionId);
 
             base.OnModelCreating(modelBuilder);
         }

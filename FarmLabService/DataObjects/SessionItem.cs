@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace FarmLabService.DataObjects
 {
@@ -12,8 +13,9 @@ namespace FarmLabService.DataObjects
         public Guid SessionKey { get; set; }
 
         [Required]
+        [ForeignKey("FK_Session_BelongToUser")]
         public UserItem User { get; set; }
-        [Required]
-        public int UserId { get; set; }
+  //      [Required]
+  //      public int UserId { get; set; }
     }
 }

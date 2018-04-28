@@ -15,6 +15,25 @@ namespace FarmLabService.Services
             _context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
+        public async Task<SessionItem> CreateSessionAndAssociateUserAsync(UserItem item)
+        {
+            var userItem = await GetByIdAsync(item.Email) ?? await CreatetUserAsync(item);
+
+            var session = new SessionItem
+            {
+                IsValid = true,
+                Id = 0,
+                LastActivity = DateTime.UtcNow,
+                SessionKey = Guid.NewGuid(),
+                User = userItem
+            };
+
+            await _context.Session.AddAsync(session);
+            await _context.SaveChangesAsync();
+
+            return session;
+        }
+
         public async Task<UserItem> GetUserAsync(UserItem item)
         {
             var userItem = await GetByIdAsync(item.Email);

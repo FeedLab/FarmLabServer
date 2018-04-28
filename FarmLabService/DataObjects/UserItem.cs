@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.InteropServices;
 
 namespace FarmLabService.DataObjects
@@ -43,7 +44,8 @@ namespace FarmLabService.DataObjects
         public string FirstName { get; set; }
         public string LastName { get; set; }
 
+        [ForeignKey("FK_User_ActiveSession")]
         public SessionItem ActiveSession { get; set; }
-        public int SessionId { get; set; }
+    //    public int SessionId { get; set; }
     }
 }
